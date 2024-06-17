@@ -1,0 +1,735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1">//FCFS---Disk Scheduling Algorithms</p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">#include&lt;math.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int a[]={98,183,37,122,14,124,65,67};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int initial_head=53,total_head_value=abs(a[0]-53);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(int i=1;i&lt;8;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>total_head_value+=abs(a[i]-a[i-1]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%d",total_head_value);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">OUTPUT::::</p>
+<p class="p1">640</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//SSTF Disk Scheduling Algorithms</p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">#include&lt;math.h&gt;</p>
+<p class="p1">int main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int a[]={98,183,37,122,14,124,65,67},total=0,count=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int n=8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int initial=53;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>while(count!=n)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int min=1000,d,index;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(int i=0;i&lt;n;i++)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">           </span>d=abs(a[i]-initial );</p>
+<p class="p1"><span class="Apple-converted-space">           </span>if(min&gt;d)</p>
+<p class="p1"><span class="Apple-converted-space">           </span>{</p>
+<p class="p1"><span class="Apple-converted-space">           </span>min=d;</p>
+<p class="p1"><span class="Apple-converted-space">           </span>index=i;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>total+=min;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>min=1000;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>initial=a[index];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>a[index]=1000;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>count++;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%d",total);</p>
+<p class="p1">}<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Output:::</p>
+<p class="p2"><br></p>
+<p class="p1">236</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//SCAN Disk Scheduling Algorithm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">#include&lt;math.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int a[]={98,183,37,122,14,124,65,67},total;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int n=8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int initial=53;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>//sorting</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(int i=0;i&lt;n;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int min=i;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(int j=i;j&lt;n;j++)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(a[j]&lt;a[min])</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min=j;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>//swapping</p>
+<p class="p1"><span class="Apple-converted-space">        </span>a[i]=a[i]+a[min]-(a[min]=a[i]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>total=initial+a[n-1];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%d",total);</p>
+<p class="p1">}</p>
+<p class="p1">OUTPUT::::</p>
+<p class="p2"><br></p>
+<p class="p1">236</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//C SCAN Disk Scheduling Algorithm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">#include&lt;math.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int a[]={98,183,37,122,14,124,65,67};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int n=8,i,j,total=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int initial=53;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>//int temp[200];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a[n]=initial;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a[n+1]=199;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for( i=0;i&lt;10;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int min=i;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(j=i;j&lt;10;j++)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(a[j]&lt;a[min])</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min=j;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>a[i]=a[i]+a[min]-(a[min]=a[i]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(i=0;i&lt;10;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%4d",a[i]);</p>
+<p class="p2"><br></p>
+<p class="p1">for(i=0;i&lt;10;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(a[i]==initial){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>total=a[n+1]-a[i];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>//printf("%d%d",total,i);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("\n");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>total+=a[i-1];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%d",total);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Output:::</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space"> </span>14<span class="Apple-converted-space">  </span>37<span class="Apple-converted-space">  </span>53<span class="Apple-converted-space">  </span>65<span class="Apple-converted-space">  </span>67<span class="Apple-converted-space">  </span>98 122 124 183 199</p>
+<p class="p1">183</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p1">//LOOK Disk Scheduling Algorithm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">#include&lt;math.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int a[]={98,183,37,122,14,124,65,67};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int n=8,i,j,total=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int initial=53,min;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>//int temp[200];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a[n]=initial;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for( i=0;i&lt;9;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>min=i;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(j=i;j&lt;9;j++)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(a[j]&lt;a[min])</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min=j;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>a[i]=a[i]+a[min]-(a[min]=a[i]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(int i=0;i&lt;n+1;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%d ",a[i]);</p>
+<p class="p2"><span class="Apple-converted-space">   </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(i=0;i&lt;n+1;i++)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(a[i]==initial)</p>
+<p class="p1"><span class="Apple-converted-space">      </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">   </span>//printf("%d\n",a[n]);</p>
+<p class="p1"><span class="Apple-converted-space">   </span>printf("\n");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>total+=a[n]-initial;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>printf("%d\n",total);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>total+=a[n]-a[i-1];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>printf("%d\n",total);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(j=i-2;j&gt;=0;j--)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>total+=a[j+1]-a[j];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>printf("%d",total);</p>
+<p class="p1">}</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1">OUTPUT:::</p>
+<p class="p2"><br></p>
+<p class="p1">14 37 53 65 67 98 122 124 183<span class="Apple-converted-space"> </span></p>
+<p class="p1">130</p>
+<p class="p1">276</p>
+<p class="p1">299</p>
+<p class="p2"><span class="Apple-converted-space">     </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">     </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>//C-LOOK Disk Scheduling Algorithm</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">#include&lt;math.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int a[]={98,183,37,122,14,124,65,67};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int n=8,i,j,total=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int initial=53,min;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>//int temp[200];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a[n]=initial;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for( i=0;i&lt;9;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>min=i;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(j=i;j&lt;9;j++)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(a[j]&lt;a[min])</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min=j;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>a[i]=a[i]+a[min]-(a[min]=a[i]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(int i=0;i&lt;n+1;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("%d ",a[i]);</p>
+<p class="p2"><span class="Apple-converted-space">   </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(i=0;i&lt;n+1;i++)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(a[i]==initial)</p>
+<p class="p1"><span class="Apple-converted-space">      </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">   </span>//printf("%d\n",a[n]);</p>
+<p class="p1"><span class="Apple-converted-space">   </span>printf("\n");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>total+=a[n]-initial;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>printf("%d\n",total);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>total+=a[n]-a[0];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>printf("%d\n",total);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(j=0;j&lt;i-1;j++)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>total+=abs(a[j]-a[j+1]);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>printf("%d",total);</p>
+<p class="p1">}</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">     </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>O/p</p>
+<p class="p2"><br></p>
+<p class="p1">14 37 53 65 67 98 122 124 183<span class="Apple-converted-space"> </span></p>
+<p class="p1">130</p>
+<p class="p1">299</p>
+<p class="p1">322</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">FILE ALLOCATION STRATAGIES</p>
+<p class="p2"><br></p>
+<p class="p1">//Contiguous FILE ALLOCATION STRATAGIES</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int st,len,c;</p>
+<p class="p1"><span class="Apple-converted-space">     </span>int j;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int f[50];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(int i=0;i&lt;50;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>f[i]=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>X:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter starting block &amp; lenght of the file to be allocated : ");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d%d",&amp;st,&amp;len);</p>
+<p class="p2"><span class="Apple-converted-space">   </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(j=st;j&lt;st+len;j++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(f[j]==0)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>f[j]=1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("%d-&gt;%d",j,f[j]);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>else</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("File Already Allocated\n");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("\n");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(j==st+len)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("file is allocated\n");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("\nif you want to enter more files?(y-1/n-0)");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;c);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(c==1)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>goto X;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else</p>
+<p class="p1"><span class="Apple-converted-space">    </span>exit(0);</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">OUTPUT:::</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Enter starting block &amp; lenght of the file to be allocated : 2 9</p>
+<p class="p1">2-&gt;1</p>
+<p class="p1">3-&gt;1</p>
+<p class="p1">4-&gt;1</p>
+<p class="p1">5-&gt;1</p>
+<p class="p1">6-&gt;1</p>
+<p class="p1">7-&gt;1</p>
+<p class="p1">8-&gt;1</p>
+<p class="p1">9-&gt;1</p>
+<p class="p1">10-&gt;1</p>
+<p class="p1">file is allocated</p>
+<p class="p2"><br></p>
+<p class="p1">if you want to enter more files?(y-1/n-0)1</p>
+<p class="p1">Enter starting block &amp; lenght of the file to be allocated : 3 10</p>
+<p class="p1">File Already Allocated</p>
+<p class="p2"><br></p>
+<p class="p1">if you want to enter more files?(y-1/n-0)</p>
+<p class="p2"><br></p>
+<p class="p1">//Linked File Allocation Strategy<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int f[50],i,j,k,st,len,c;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int allocated_blocks_length,allocated_blocks;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(i=0;i&lt;50;i++){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>f[i]=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter length of allocated blocks : ");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;allocated_blocks_length);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter the blocks that are allocated");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(i=0;i&lt;allocated_blocks_length;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scanf("%d",&amp;allocated_blocks);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>f[allocated_blocks]=1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>X:</p>
+<p class="p1">printf("Enter starting block and length of block : ");</p>
+<p class="p1">scanf("%d%d",&amp;st,&amp;len);</p>
+<p class="p1">k=len;</p>
+<p class="p1">//printf("%d",f[st]);</p>
+<p class="p1">if(f[st]==0)</p>
+<p class="p1">{</p>
+<p class="p1">for(j=st;j&lt;(st+k);j++)</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(f[j]==0)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>f[j]=1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("%d-&gt;%d",j,f[j]);</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("%d block is already allocated",j);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>k++;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("\n");</p>
+<p class="p1">}</p>
+<p class="p1">}</p>
+<p class="p1">else</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Starting block %d is already allocated\n",st);</p>
+<p class="p1">}</p>
+<p class="p1">printf("Do you want to enter more files (y-1/n-0");</p>
+<p class="p1">scanf("%d",&amp;c);</p>
+<p class="p1">if(c==1)</p>
+<p class="p1">goto X;</p>
+<p class="p1">else</p>
+<p class="p1">exit(0);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">OUPUT:::</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Enter length of allocated blocks : 3</p>
+<p class="p1">Enter the blocks that are allocated4 7 9</p>
+<p class="p1">Enter starting block and length of block : 3 7</p>
+<p class="p1">3-&gt;1</p>
+<p class="p1">4 block is already allocated</p>
+<p class="p1">5-&gt;1</p>
+<p class="p1">6-&gt;1</p>
+<p class="p1">7 block is already allocated</p>
+<p class="p1">8-&gt;1</p>
+<p class="p1">9 block is already allocated</p>
+<p class="p1">10-&gt;1</p>
+<p class="p1">11-&gt;1</p>
+<p class="p1">12-&gt;1</p>
+<p class="p1">Do you want to enter more files (y-1/n-0)</p>
+<p class="p2"><br></p>
+<p class="p1">//Indexed File Allocation Strategies</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">#include&lt;stdlib.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int ind,index[100],f[50],i,n,c,j;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(i=0;i&lt;50;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>f[i]=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>x:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter index Block : ");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;ind);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(f[ind]!=1)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("Enter no of files for indexing : ");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scanf("%d",&amp;n);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("Index Block is allocated\n");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>goto x;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>y:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int count=0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(i=0;i&lt;n;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scanf("%d",&amp;index[i]);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(f[index[i]]==0)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>count++;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(count==n)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(j=0;j&lt;n;j++){</p>
+<p class="p1"><span class="Apple-converted-space">            </span>f[index[j]]=1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("Allocated\n");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("File Indexed\n");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for(int k=0;k&lt;n;k++){</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("%d---%d::%d",ind,index[k],f[index[k]]);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("\n");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("File in index is alredy allocated\n");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("Enter another file in this index\n");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>goto y;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Do you want to enter more file (y-1/n-0)");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;c);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(c==1)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>goto x;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else</p>
+<p class="p1"><span class="Apple-converted-space">    </span>exit(0);</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1">}</p>
+<p class="p1">OUTPUT:::</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">/tmp/1oUZmC7uXt.o</p>
+<p class="p1">Enter index Block : 9</p>
+<p class="p1">Enter no of files for indexing : 3</p>
+<p class="p1">1 2 3</p>
+<p class="p1">Allocated</p>
+<p class="p1">File Indexed</p>
+<p class="p1">9---1::1</p>
+<p class="p1">9---2::1</p>
+<p class="p1">9---3::1</p>
+<p class="p1">Do you want to enter more file (y-1/n-0)1</p>
+<p class="p1">Enter index Block : 9</p>
+<p class="p1">Enter no of files for indexing : 3</p>
+<p class="p1">2 3 4</p>
+<p class="p1">File in index is alredy allocated</p>
+<p class="p1">Enter another file in this index</p>
+<p class="p1">5</p>
+<p class="p1">3 4</p>
+<p class="p1">File in index is alredy allocated</p>
+<p class="p1">Enter another file in this index</p>
+<p class="p1">5 6 4</p>
+<p class="p1">Allocated</p>
+<p class="p1">File Indexed</p>
+<p class="p1">9---5::1</p>
+<p class="p1">9---6::1</p>
+<p class="p1">9---4::1</p>
+<p class="p1">Do you want to enter more file (y-1/n-0)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>//LFU<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include &lt;stdio.h&gt;</p>
+<p class="p1">#include &lt;limits.h&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">int findLFU(int count[], int times[], int capacity) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int minCount = INT_MAX, minTime = INT_MAX, index = -1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; capacity; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (count[i] &lt; minCount || (count[i] == minCount &amp;&amp; times[i] &lt; minTime)) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>minCount = count[i];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>minTime = times[i];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>index = i;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return index;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">void LFU(int pages[], int n, int capacity) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int frames[100], count[100], times[100], timer = 0, faults = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; capacity; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>frames[i] = -1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>count[i] = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>times[i] = 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; n; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int pageFound = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int j;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (j = 0; j &lt; capacity; j++) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (frames[j] == pages[i]) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>count[j]++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>times[j] = timer++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>pageFound = 1;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!pageFound) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>int lfu = findLFU(count, times, capacity);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>frames[lfu] = pages[i];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>count[lfu] = 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>times[lfu] = timer++;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>faults++;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("\nFrames after accessing page %d: ", pages[i]);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (j = 0; j &lt; capacity; j++) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (frames[j] != -1)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>printf("%d ", frames[j]);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>else</p>
+<p class="p1"><span class="Apple-converted-space">                </span>printf("- ");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("\n\nTotal Page Faults: %d\n", faults);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">int main() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int n = 15;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int capacity = 3;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>LFU(pages, n, capacity);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>return 0;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Output ::</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Frames after accessing page 7: 7 - -<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 0: 7 0 -<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 1: 7 0 1<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 2: 2 0 1<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 0: 2 0 1<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 3: 2 0 3<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 0: 2 0 3<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 4: 4 0 3<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 2: 4 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 3: 3 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 0: 3 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 3: 3 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 2: 3 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 1: 1 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p1">Frames after accessing page 2: 1 0 2<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Total Page Faults: 9</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//MFT<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int ms,bs,size,mp[100],n;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int tif=0,ef,nob,i;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter total memory size : ");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;ms);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter<span class="Apple-converted-space">  </span>size of memory blocks : ");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;bs);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>nob=ms/bs;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ef=ms-(bs*nob);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter no of processes : ");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;n);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(int i=0;i&lt;n;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Enter memory for process %d",(i+1));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scanf("%d",&amp;mp[i]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(i=0;i&lt;n;i++)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(mp[i]&lt;=bs)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf(" block %d is Allocated",mp[i]);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tif+=bs-mp[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>else</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>printf("block %d is Not allocated",mp[i]);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>printf("\n");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("Internal fragmentation : %d\n",tif);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>printf("External Fragmentation : %d\n",ef);</p>
+<p class="p1">}</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>OUTPUT :::</p>
+<p class="p1">Enter total memory size : 1000</p>
+<p class="p1">Enter<span class="Apple-converted-space">  </span>size of memory blocks : 300</p>
+<p class="p1">Enter no of processes : 5</p>
+<p class="p1">Enter memory for process 1275</p>
+<p class="p1">Enter memory for process 2400</p>
+<p class="p1">Enter memory for process 3290</p>
+<p class="p1">Enter memory for process 4293</p>
+<p class="p1">Enter memory for process 5100</p>
+<p class="p1"><span class="Apple-converted-space"> </span>block 275 is Allocated</p>
+<p class="p1">block 400 is Not allocated</p>
+<p class="p1"><span class="Apple-converted-space"> </span>block 290 is Allocated</p>
+<p class="p1"><span class="Apple-converted-space"> </span>block 293 is Allocated</p>
+<p class="p1"><span class="Apple-converted-space"> </span>block 100 is Allocated</p>
+<p class="p1">Internal fragmentation : 242</p>
+<p class="p1">External Fragmentation : 100</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">=== Code Exited With Errors ===</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">//MVT<span class="Apple-converted-space"> </span></p>
+<p class="p1">#include&lt;stdio.h&gt;</p>
+<p class="p1">void main()</p>
+<p class="p1">{</p>
+<p class="p1">int ms,mp[10],i, temp,n=0;</p>
+<p class="p1">char ch = 'y';</p>
+<p class="p1">printf("\nEnter the total memory available (in Bytes)-- ");</p>
+<p class="p1">scanf("%d",&amp;ms);</p>
+<p class="p1">temp=ms;</p>
+<p class="p1">for(i=0;ch=='y';i++,n++)</p>
+<p class="p1">{</p>
+<p class="p1">printf("\nEnter memory required for process %d (in Bytes) -- ",i+1);</p>
+<p class="p1">scanf("%d",&amp;mp[i]);</p>
+<p class="p1">if(mp[i]&lt;=temp)</p>
+<p class="p1">{</p>
+<p class="p1">printf("\nMemory is allocated for Process %d ",i+1);</p>
+<p class="p1">temp = temp - mp[i];</p>
+<p class="p1">}</p>
+<p class="p1">else</p>
+<p class="p1">{</p>
+<p class="p1">printf("\nMemory is Full");</p>
+<p class="p1">break;</p>
+<p class="p1">}</p>
+<p class="p1">printf("\nDo you want to continue(y/n) -- ");</p>
+<p class="p1">scanf(" %c", &amp;ch);</p>
+<p class="p1">}</p>
+<p class="p1">printf("\n\nTotal Memory Available -- %d", ms);</p>
+<p class="p1">printf("\n\n\tPROCESS\t\t MEMORY ALLOCATED<span class="Apple-converted-space">  </span>");</p>
+<p class="p1">for(i=0;i&lt;n;i++)</p>
+<p class="p1">printf("\n \t%d\t\t%d",i+1,mp[i]);</p>
+<p class="p1">printf("\n\nTotal Memory Allocated is %d",ms-temp);</p>
+<p class="p1">printf("\nTotal External Fragmentation is %d\n",temp);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">OUPUT:::</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Enter the total memory available (in Bytes)-- 1000</p>
+<p class="p2"><br></p>
+<p class="p1">Enter memory required for process 1 (in Bytes) -- 350</p>
+<p class="p2"><br></p>
+<p class="p1">Memory is allocated for Process 1<span class="Apple-converted-space"> </span></p>
+<p class="p1">Do you want to continue(y/n) -- y</p>
+<p class="p2"><br></p>
+<p class="p1">Enter memory required for process 2 (in Bytes) -- 900</p>
+<p class="p2"><br></p>
+<p class="p1">Memory is Full</p>
+<p class="p2"><br></p>
+<p class="p1">Total Memory Available -- 1000</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-tab-span">	</span>PROCESS<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> MEMORY ALLOCATED <span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span>1<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>350</p>
+<p class="p2"><br></p>
+<p class="p1">Total Memory Allocated is 350</p>
+<p class="p1">Total External Fragmentation is 650</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">=== Code Exited With Errors ===</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+</body>
+</html>
